@@ -1,0 +1,36 @@
+{% extends "bootstrap/base.html" %}
+{% block title %}Prioritizer{% endblock %}
+
+{% block content %}
+<div class="container">
+<div class="row">
+	<h1>Prioritizer</h1>
+	<h4><i class="glyphicon glyphicon-file"></i> - <a href="#">Repo Name</a> / <a href="#">Link</a> </h4>
+	<br>
+	<p>Sort : <a href="-dateofcr">Newest</a> | <a href="+dateofcr">Oldest</a> | <a href="-noc">Most Commented</a> | <a href="+noc">Least Commented</a> | <a href="-id">Default</a> </p>
+	<p><span class="glyphicon glyphicon-exclamation-sign"></span> {{ op }} <a href="FilterByOpen">Open</a> <span class = "glyphicon glyphicon-ok"></span> {{cl}} <a href="FilterByClosed">Closed</a>
+		<span class="glyphicon glyphicon-refresh"></span><a href="refresh"> Refresh</a></p>
+</div>
+	<ul class="list-group">
+		<div class="row">
+			{% for i in issues %}
+			<li class="list-group-item d-flex justify-content-between align-items-center">
+			<div class=col-sm>
+			{% if i.state == "Open" %}
+		  <span class="glyphicon glyphicon-exclamation-sign"></span>
+			{% endif %}
+			{% if i.state == "Close" %}
+			<span class="glyphicon glyphicon-ok"></span>
+			{% endif %}
+			<span>
+			<a href="#">{{ i.title }} </a>
+			<p> #{{ i.id }} opened on {{ i.dateofcr }} by {{ i.author }} </p>
+			<a href={{ i.comments }} ><span class="glyphicon glyphicon-comment"></span> {{ i.noc }} </a>
+			</span>
+		</li>
+	{% endfor %}
+	</div>
+	</ul>
+	</div>
+</div>
+{% endblock %}
